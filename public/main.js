@@ -6,7 +6,7 @@ const password = document.querySelector("#password");
 const info = document.querySelector("#info");
 let authEngine;
 
-//Define a class AuthHandler that will handle the credentials
+//Define a class AuthHandler constructor that will handle the credentials
 class AuthHandler {
   constructor(name, email, password) {
     this.name = name;
@@ -14,13 +14,8 @@ class AuthHandler {
     this.password = password;
   }
 
-  //Is called when you click the submit button
-  //Arguments:
-  //All three name, email and password must be filled in
+  //Is called when we want to register an account
   getDataRegister = async () => {
-    let res, response;
-
-    //Both movie and year is given
     fetch("api/user/register", {
       method: "POST",
       headers: {
@@ -35,19 +30,16 @@ class AuthHandler {
         password: this.password,
       }),
     })
-      .then((res) => res.json()) //convert to json
-      .then((response) => {
+      .then((res) => res.json())
+      .then((data) => {
         //If response success store token in localstorage
-        if (response.status === "success") 
-        {
-          localStorage.setItem("token", response.token);
-           info.innerHTML = "You have successfully been registred";
-           info.style.color="green"
-          //Redirect browser to a new page refered to by response.redirect which is admin
-          //location.href = response.redirect;
-        } 
-        else 
-        {
+        if (data.status === "success") {
+          localStorage.setItem("token", data.token);
+
+          //Inform success to register
+          info.innerHTML = "You have successfully been registred";
+          info.style.color = "green";
+        } else {
           //If response not success from backend alert input credentials
           alert("Please input right credentials");
         }
@@ -57,56 +49,68 @@ class AuthHandler {
       });
   };
 
+  //Is called when we want to login to an existing account
+  //Here we use async/await
   getDataLogin = async () => {
-    let res, response;
+    try {
+      const resolve = await fetch("api/user/login", {
+        method: "POST",
+        headers: {
+          //This parameter has to be set to send the request body in JSON format.
+          "Content-Type": "application/json",
+        },
 
-    //Both movie and year is given
-    fetch("api/user/login", {
-      method: "POST",
-      headers: {
-        //This parameter has to be set to send the request body in JSON format.
-        "Content-Type": "application/json",
-      },
-
-      // Convert json object to a string with json pattern
-      body: JSON.stringify({
-        email: this.email,
-        password: this.password,
-      }),
-    })
-      .then((res) => res.json()) //convert to json
-      .then((response) => {
-        //If response success store token in localstorage
-        location.href = response.redirect;
-      })
-      .catch((err) => {
-        console.log(err);
+        // Convert json object to a string with json pattern
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+        }),
       });
+
+      let data = await resolve.json();
+      if (data.status === "success") {
+        location.href = data.redirect;
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
- const isValid = fields =>
-  {
-     fields.forEach(field => {
-      if (fields ==="")
-          return false;
-   });
-
-   return true;
-  }
+//Validate collection fields if we have empty string
+const isValid = (fields) => {
+  let status = true;
+  fields.forEach((field) => {
+    if (field === "") status = false;
+  });
+  return status;
+};
 
 //Event handler that is called when clicking submit
-myform.addEventListener("submit", (event) => {
-  event.preventDefault();
+if (myform) {
+  myform.addEventListener("submit", (event) => {
+    event.preventDefault(); //Supress default handling page refresh on submit
 
-  if ($(myform).attr('name') === "register")
-  {
-    if(isValid([name.value, email.value, password.value]))
-        new AuthHandler(name.value, email.value, password.value).getDataRegister();
-  }
-  else if($(myform).attr('name') === "login")
-  {
-    if(isValid([email.value, password.value]))
-      new AuthHandler(" ", email.value, password.value).getDataLogin();
-  }
-});
+    //Check which form we are using and validate the forms fields
+    //If valid form instansiate a new Authhandler
+    if ($(myform).attr("name") === "register") {
+      if (isValid([name.value, email.value, password.value])) {
+        new AuthHandler(
+          name.value,
+          email.value,
+          password.value
+        ).getDataRegister();
+      } else {
+        alert("You must fill in both Name, Email and Password");
+      }
+    } else {
+      if ($(myform).attr("name") === "login") {
+        if (isValid([email.value, password.value])) {
+          new AuthHandler(" ", email.value, password.value).getDataLogin();
+        } else {
+          alert("You must fill in both Email and Password");
+        }
+      }
+    }
+  });
+}

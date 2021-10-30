@@ -74,7 +74,7 @@ router.post('/login', async (req,res) => {
    //Apply an algoritm with key on header and payload by using jwt.sign
    const token = jwt.sign( {_id: user._id}, process.env.TOKEN_SECRET);
 
-   res.header('auth-token', token).json({token, redirect:'batcave'});
+   res.header('auth-token', token).json({token, redirect:'batcave', status: 'success'});
 
 });
 
