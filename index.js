@@ -1,5 +1,6 @@
 // DB_CONNECT = mongodb://localhost:27017/auth-jwt;
-// DB_CONNECT = mongodb+srv://Tony:Pissen30060@tonyscluster.qwqe4.mongodb.net/auth-jwt-tony?retryWrites=true&w=majority
+//user=Tony Password=Pissen30060, databas = auth-jwt-db
+// DB_CONNECT = mongodb+srv://Tony:Pissen30060@tonyscluster.qwqe4.mongodb.net/auth-jwt-db?retryWrites=true&w=majority
 //Import some npm package
 const express = require('express');
 const app = express();
