@@ -5,38 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Register</title>
+    <title>Start page</title>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <div class="flex-container">
-          <nav>
-            <ul class="flex-container">
-              <li><a href="register.html">Register</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
+        <nav>
+          <ul class="container">
+            <li class="one">
+              <a href="index.html"
+                ><img src="logo.png" alt="Bild på en hästsko"
+              /></a>
+            </li>
+            <li class="two"><a href="register.html">Register</a></li>
+            <li class="three"><a href="login.html">Login</a></li>
+            <li class="four">
+              <a href="test">Test</a>
+            </li>
+          </ul>
+        </nav>
       </header>
 
-      <h1 style="text-align: center"> Welcome to Kattis</h1>
+      <h1 class="center-text">Welcome to Kattis</h1>
 
-      <main style="margin-top: 3em;">
-        <img src="bellis.jpg" alt="">
-        <div style="max-width: 700px;margin: 0 auto; margin-top: 1em;">
-          <p>Detta är vår katt som heter Bellis hon är 6 år gammal. Hon älskar att ligga
-            på hästtäcke som vår dotter tar ibland för att laga det. Bellis tycker också om
-            att ligga i lådor. Hon är mycket bortskämd och får skinka och räkost ibland.
+      <main>
+        <img src="bellis.jpg" alt="En bild på en katt" />
+        <div class="information">
+          <p>
+            Detta är vår katt som heter Bellis hon är 6 år gammal. Hon älskar
+            att ligga på hästtäcke som vår dotter tar ibland för att laga det.
+            Bellis tycker också om att ligga i lådor. Hon är mycket bortskämd
+            och får skinka och räkost ibland.
           </p>
         </div>
-        </main>
+      </main>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
+
+    <!-- Add jquery cdn -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous">
-    </script>
+      crossorigin="anonymous"
+    ></script>
 
     <script src="main.js"></script>
   </body>

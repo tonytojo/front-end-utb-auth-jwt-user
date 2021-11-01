@@ -4,6 +4,7 @@ const User   = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
 //Use destructuring from module ../validation
 const { registerValidation, loginValidation } = require('../validation');
 
@@ -74,8 +75,12 @@ router.post('/login', async (req,res) => {
    //Apply an algoritm with key on header and payload by using jwt.sign
    const token = jwt.sign( {_id: user._id}, process.env.TOKEN_SECRET);
 
-   res.header('auth-token', token).json({token, redirect:'batcave', status: 'success'});
+   res.cookie("token", token);
 
+   return res.json({message: "Logged in successfully", status: 'success'});
+   
+   //.json( {message: "Logged in successfully", status: 'success'} );
+   //res.header('auth-token', token).json({token, redirect:'batcave', status: 'success'});
 });
 
 module.exports = router;

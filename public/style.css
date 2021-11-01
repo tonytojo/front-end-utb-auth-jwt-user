@@ -118,6 +118,39 @@ main{
   flex-direction: column;
 }
 
+.information
+{
+   max-width: 600px;
+   margin: 0 auto; 
+   margin-top: 1em;
+}
+
+.container {
+   display: flex;
+   margin-top: 10px;
+ }
+ 
+ 
+ .one{
+   flex: 1;
+   margin-left: 1em;
+ }
+ 
+ .two, .three,.four {
+   margin-right: 1em;
+ }
+
+ header{
+    background-color: #b5d1e1;
+    padding: 10px 0;
+ }
+
+ h1
+ {
+    margin-top: 15px;
+    margin-bottom: 30px;
+ }
+
 /******************************************/
 /*        Generell settings               */
 /******************************************/

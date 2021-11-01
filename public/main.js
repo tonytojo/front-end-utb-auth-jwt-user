@@ -4,7 +4,6 @@ const name = document.querySelector("#name");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const info = document.querySelector("#info");
-let authEngine;
 
 //Define a class AuthHandler constructor that will handle the credentials
 class AuthHandler {
@@ -14,7 +13,8 @@ class AuthHandler {
     this.password = password;
   }
 
-  //Is called when we want to register an account
+  //Is called when we want to register an accountusing Post
+  //All data is already in the object
   getDataRegister = async () => {
     fetch("api/user/register", {
       method: "POST",
@@ -32,11 +32,11 @@ class AuthHandler {
     })
       .then((res) => res.json())
       .then((data) => {
-        //If response success store token in localstorage
+        //If data is success store token in localstorage
         if (data.status === "success") {
-          localStorage.setItem("token", data.token);
+          //localStorage.setItem("token", data.token);
 
-          //Inform success to register
+          //Give some suitable information
           info.innerHTML = "You have successfully been registred";
           info.style.color = "green";
         } else {
@@ -68,8 +68,10 @@ class AuthHandler {
       });
 
       let data = await resolve.json();
-      if (data.status === "success") {
-        location.href = data.redirect;
+
+      if (data.status === "success") 
+      {
+        location.href = "api/secure/protected";
       }
     } catch (e) {
       console.log(e);

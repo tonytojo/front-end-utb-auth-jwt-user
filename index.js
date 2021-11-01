@@ -1,9 +1,13 @@
 // DB_CONNECT = mongodb://localhost:27017/auth-jwt;
-//user=Tony Password=Pissen30060, databas = auth-jwt-db
+// user=Tony Password=Pissen30060, databas = auth-jwt-db
 // DB_CONNECT = mongodb+srv://Tony:Pissen30060@tonyscluster.qwqe4.mongodb.net/auth-jwt-db?retryWrites=true&w=majority
+
 //Import some npm package
+const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
@@ -11,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 //config will read your .env file, parse the contents, assign it to 
 //process.env, and return an Object with a parsed key containing the loaded 
 //content or an error key if it failed.
-require('dotenv').config();
+
 const pages = require('./routes/pages');
 
 //Connect to mongodb. process.env.DB_CONNECT will read from .env symbol file
@@ -27,6 +31,7 @@ const secureRoute = require('./routes/secure');
 
 //Used for recognizing incoming Request Object as a JSON Object.
 app.use(express.json());
+
 
 //To serve static files such as images, CSS files, and JavaScript files, use the express. static built-in middleware function in Express. Now, you can load the files that are in the public directory from the /static path prefix. ...
 //writing style.ccs in browser will retutn this file
